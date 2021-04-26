@@ -1,11 +1,11 @@
 {
-  "name": "stevesch-Render",
+  "name": "stevesch-Mesh",
   "keywords": "",
   "description": "",
   "repository":
   {
     "type": "git",
-    "url": "https://github.com/stevesch/stevesch-Render"
+    "url": "https://github.com/stevesch/stevesch-Mesh"
   },
   "exclude": "tests",
   "frameworks": "arduino",
