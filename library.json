@@ -1,0 +1,21 @@
+{
+  "name": "stevesch-Render",
+  "keywords": "",
+  "description": "",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/stevesch/stevesch-Render"
+  },
+  "exclude": "tests",
+  "frameworks": "arduino",
+  "platforms": "*",
+  "authors":
+  {
+    "name": "Stephen Schlueter",
+    "url": "",
+    "maintainer": true
+  },
+  "dependencies": [
+  ]
+}

@@ -1,0 +1,8 @@
+.pio
+.vscode
+
+.DS_Store
+$RECYCLE.BIN/
+
+Thumbs.db
+._*
