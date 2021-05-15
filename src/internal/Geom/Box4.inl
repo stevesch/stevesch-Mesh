@@ -24,14 +24,14 @@ namespace stevesch
 
   SBOX4INLINE void Box4::booleanOr (const Box4 &box)
   {
-    vector4::min(m_vMin, m_vMin, box.getMin());
-    vector4::max(m_vMax, m_vMax, box.getMax());
+    vector4::min3(m_vMin, m_vMin, box.getMin());
+    vector4::max3(m_vMax, m_vMax, box.getMax());
   }
 
   SBOX4INLINE void Box4::booleanOr (const vector4 &v)
   {
-    vector4::min(m_vMin, m_vMin, v);
-    vector4::max(m_vMax, m_vMax, v);
+    vector4::min3(m_vMin, m_vMin, v);
+    vector4::max3(m_vMax, m_vMax, v);
   }
 
   SBOX4INLINE bool Box4::in(const Box4 &box) const
@@ -88,25 +88,25 @@ namespace stevesch
 
   SBOX4INLINE void Box4::getCenter(vector4 &v) const
   {
-    vector4::add(v, getMin(), getMax());
-    v *= 0.5f;
+    vector4::add3(v, getMin(), getMax());
+    v.mul3(0.5f);
   }
 
   SBOX4INLINE void Box4::offset(const vector4 &v)
   {
-    m_vMin += v;
-    m_vMax += v;
+    m_vMin.add3(v);
+    m_vMax.add3(v);
   }
 
   SBOX4INLINE void Box4::expand(const vector4 &v)
   {
-    m_vMin -= v;
-    m_vMax += v;
+    m_vMin.sub3(v);
+    m_vMax.add3(v);
   }
 
   SBOX4INLINE void Box4::getDimensions(vector4 &v) const
   {
-    vector4::sub(v, getMax(), getMin());
+    vector4::sub3(v, getMax(), getMin());
   }
 
   SBOX4INLINE void Box4::deflateToOctant(bool highX, bool highY, bool highZ)

@@ -35,13 +35,13 @@ namespace stevesch
     int n = nPoints;
     while (--n > 0) // skip first point (n > 0)
     {
-      vector4::min(vMin, vMin, *p);
-      vector4::max(vMax, vMax, *p);
+      vector4::min3(vMin, vMin, *p);
+      vector4::max3(vMax, vMax, *p);
       p++;
     }
 
-    vector4::add(vCenter, vMin, vMax);
-    vCenter *= 0.5f;
+    vector4::add3(vCenter, vMin, vMax);
+    vCenter.mul3(0.5f);
 
     float fRadius = 0.0f;
     float fDist2;
@@ -49,7 +49,7 @@ namespace stevesch
     p = pPointArray;
     while (--n >= 0) // examine all points again (n >= 0)
     {
-      fDist2 = vector4::distanceSquared(*p, vCenter);
+      fDist2 = vector4::distanceSquared3(*p, vCenter);
       fRadius = stevesch::maxf(fDist2, fRadius);
       p++;
     }

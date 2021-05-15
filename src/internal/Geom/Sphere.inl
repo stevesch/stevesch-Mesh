@@ -83,23 +83,23 @@ namespace stevesch
   // prevents this: sub(v, m_v, v)-- would result in a bad w for v
   SSPHEREINLINE void Sphere::subtractCenter(vector4 &v) const
   {
-    vector4::sub(v, v, m_v);
+    vector4::sub3(v, v, m_v);
   }
 
   SSPHEREINLINE float Sphere::squareDistFromCenter(const vector4 &v)
   {
-    return vector4::squareDist(v, m_v);
+    return vector4::squareDist3(v, m_v);
   }
 
   // relies on the fact that add copies w component from first parameter (m_v)
   SSPHEREINLINE void Sphere::translate(const vector4 &v)
   {
-    vector4::add(m_v, m_v, v);
+    vector4::add3(m_v, m_v, v);
   }
 
   SSPHEREINLINE bool Sphere::intersects(const Sphere &s) const
   {
-    float fDistanceSquared = vector4::squareDist(s.m_v, m_v);
+    float fDistanceSquared = vector4::squareDist3(s.m_v, m_v);
     float fRadiusSumSquared = s.getRadius() + getRadius();
     fRadiusSumSquared *= fRadiusSumSquared;
 
@@ -108,7 +108,7 @@ namespace stevesch
 
   SSPHEREINLINE bool Sphere::intersects(const vector4 &vCenter, float fRadius) const
   {
-    float fDistanceSquared = vector4::squareDist(vCenter, m_v);
+    float fDistanceSquared = vector4::squareDist3(vCenter, m_v);
     float fRadiusSumSquared = fRadius + getRadius();
     fRadiusSumSquared *= fRadiusSumSquared;
 
@@ -117,7 +117,7 @@ namespace stevesch
 
   SSPHEREINLINE bool Sphere::intersects(const vector4 &pt) const
   {
-    float rr = vector4::squareDist(pt, m_v);
+    float rr = vector4::squareDist3(pt, m_v);
 
     return (rr <= (getRadius() * getRadius()));
   }
@@ -152,8 +152,8 @@ namespace stevesch
     float fRadius = getRadius();
     vector4 v(fRadius, fRadius, fRadius);
 
-    vector4::sub(box.m_vMin, m_v, v);
-    vector4::add(box.m_vMax, m_v, v);
+    vector4::sub3(box.m_vMin, m_v, v);
+    vector4::add3(box.m_vMax, m_v, v);
   }
 
   SSPHEREINLINE void Sphere::transform(const matrix4 &transform)

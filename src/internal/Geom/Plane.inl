@@ -24,19 +24,19 @@ namespace stevesch
 
     if (rightHanded)
     {
-      vector4::sub(ea, v2, v0);
-      vector4::sub(eb, v1, v0);
+      vector4::sub3(ea, v2, v0);
+      vector4::sub3(eb, v1, v0);
     }
     else
     {
-      vector4::sub(ea, v1, v0);
-      vector4::sub(eb, v2, v0);
+      vector4::sub3(ea, v1, v0);
+      vector4::sub3(eb, v2, v0);
     }
-    ea.cross(eb);
-    ea.normalize();
+    ea.cross3(eb);
+    ea.normalize3();
 
     m_v = ea;
-    m_v.w = ea.dot(v0);
+    m_v.w = ea.dot3(v0);
   }
 
   SPLANEINLINE const Plane &Plane::set(const vector3 &vNormal, float fDistance)
@@ -56,7 +56,7 @@ namespace stevesch
 
   SPLANEINLINE float Plane::dotNormal(const vector4 &v) const
   {
-    return m_v.dot(v);
+    return m_v.dot3(v);
   }
 
   SPLANEINLINE bool Plane::isVectorAbove(const vector4 &v) const
@@ -68,11 +68,11 @@ namespace stevesch
   SPLANEINLINE bool Plane::isTriangleAbove(const vector4 *v3) const
   {
     const float fDistance = getDistance();
-    if (v3[0].dot(m_v) <= fDistance)
+    if (v3[0].dot3(m_v) <= fDistance)
       return false;
-    if (v3[1].dot(m_v) <= fDistance)
+    if (v3[1].dot3(m_v) <= fDistance)
       return false;
-    if (v3[2].dot(m_v) <= fDistance)
+    if (v3[2].dot3(m_v) <= fDistance)
       return false;
 
     return true;

@@ -68,11 +68,11 @@ namespace stevesch
 
   void SPlaneSpace2(matrix4 &rBasis, const vector4 &a, const vector4 &b)
   {
-    vector4::normalize(rBasis.col[0], a); // = a^
+    vector4::normalize3(rBasis.col[0], a); // = a^
 
-    vector4::addScaled(rBasis.col[1], b, rBasis.col[0], -rBasis.col[0].dot(b)); // j = b - (b.a^)*a^
-    rBasis.col[1].normalize();
-    vector4::cross(rBasis.col[2], rBasis.col[0], rBasis.col[1]);
+    vector4::addScaled3(rBasis.col[1], b, rBasis.col[0], -rBasis.col[0].dot3(b)); // j = b - (b.a^)*a^
+    rBasis.col[1].normalize3();
+    vector4::cross3(rBasis.col[2], rBasis.col[0], rBasis.col[1]);
 
     // complete the matrix
     rBasis.col[0].w = 0.0f;
@@ -116,11 +116,11 @@ namespace stevesch
 		m_v.w = fDistance * fFactor;
 */
     vector4 p1;
-    vector4::scale(p1, m_v, m_v.w);
+    vector4::scale3(p1, m_v, m_v.w);
     p1.w = 1.0f;
     vector4::transform(p1, mtx, p1);      // old row: p1 *= mtx;
     vector4::transformSub(m_v, mtx, m_v); // old row: m_v.mulSub( mtx );
-    m_v.w = p1.dot(m_v);
+    m_v.w = p1.dot3(m_v);
   }
 
   ///////////////////////////////////////////////////////////////
@@ -550,17 +550,17 @@ namespace stevesch
 
     const vector4 &v0 = getV0();
 
-    vector4::sub(vBasis, getV1(), v0);
+    vector4::sub3(vBasis, getV1(), v0);
 
     // all following t values are getV0() + t*vBasis
 
-    float fRecipBasisMagSquared = vBasis.recipSquareMag(); // 1 / (vBasis . vBasis)
+    float fRecipBasisMagSquared = vBasis.recipSquareMag3(); // 1 / (vBasis . vBasis)
 
-    vector4::sub(vTemp, seg1.getV0(), v0);
-    float tj0 = vBasis.dot(vTemp) * fRecipBasisMagSquared;
+    vector4::sub3(vTemp, seg1.getV0(), v0);
+    float tj0 = vBasis.dot3(vTemp) * fRecipBasisMagSquared;
 
-    vector4::sub(vTemp, seg1.getV1(), v0);
-    float tj1 = vBasis.dot(vTemp) * fRecipBasisMagSquared;
+    vector4::sub3(vTemp, seg1.getV1(), v0);
+    float tj1 = vBasis.dot3(vTemp) * fRecipBasisMagSquared;
 
     // sort parameterization values
     // (ti0 > ti1), ti0 == 0.0 by definition
@@ -618,17 +618,17 @@ namespace stevesch
 
     const vector4 &v0 = getV0();
 
-    vector4::sub(vBasis, getV1(), v0);
+    vector4::sub3(vBasis, getV1(), v0);
 
     // all following t values are getV0() + t*vBasis
 
-    float fRecipBasisMagSquared = vBasis.recipSquareMag(); // 1 / (vBasis . vBasis)
+    float fRecipBasisMagSquared = vBasis.recipSquareMag3(); // 1 / (vBasis . vBasis)
 
-    vector4::sub(vTemp, seg1.getV0(), v0);
-    float tj0 = vBasis.dot(vTemp) * fRecipBasisMagSquared;
+    vector4::sub3(vTemp, seg1.getV0(), v0);
+    float tj0 = vBasis.dot3(vTemp) * fRecipBasisMagSquared;
 
-    vector4::sub(vTemp, seg1.getV1(), v0);
-    float tj1 = vBasis.dot(vTemp) * fRecipBasisMagSquared;
+    vector4::sub3(vTemp, seg1.getV1(), v0);
+    float tj1 = vBasis.dot3(vTemp) * fRecipBasisMagSquared;
 
     // sort parameterization values
     // (ti0 > ti1), ti0 == 0.0 by definition
