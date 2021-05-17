@@ -1,6 +1,8 @@
 .pio
 .vscode
 
+!/examples/minimal/data/*.obj
+
 .DS_Store
 $RECYCLE.BIN/
 
