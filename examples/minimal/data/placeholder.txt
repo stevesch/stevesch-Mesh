@@ -1,2 +1,2 @@
-This is just a placeholder.  Place SPIFFS data files in this location
-
+Place model files (of type .obj) in this location.
+In PlatformIO use "Upload Filesystem Image" to upload these files to the SPIFFS filesystem on your device.
