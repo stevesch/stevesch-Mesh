@@ -1,3 +1,13 @@
+/**
+ * @file simpleRenderer.cpp
+ * @author Stephen Schlueter, github: stevesch
+ * @brief Simple ESP wireframe 3D renderer implementation file
+ * @version 0.1
+ * @date 2021-05-16
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
 #include "simpleRenderer.h"
 
 #include <StreamString.h>
