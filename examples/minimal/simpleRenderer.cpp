@@ -683,11 +683,41 @@ void simpleRendererSetup()
 #ifdef BUTTON_2
   // assign button 1 to change number of models drawn
   button2.setClickHandler([=](Button2 &btn) {
-    activeInstCount = ((activeInstCount + 1) % maxInstCount) + 1;
+    activeInstCount = (activeInstCount % maxInstCount) + 1;
     restartInstances();
   });
 #endif
 }
+
+
+void drawFps(TFT_eSPI* target, float dt)
+{
+  target->setCursor(0, 0);
+
+	float fps = (dt > 0.0f) ? 1.0f / dt : 0.0f;
+
+#if 1
+  // weighted average of fps over time:
+  static float avfps = 0.0f;
+  const float kAvFactor = 0.1f; // between 0 and 1.  closer to 0 does more averaging of reading over time.
+  avfps = lerpf(avfps, fps, kAvFactor);
+  fps = avfps;
+#endif
+
+	uint16_t color;
+	if (fps < 10.0f) {
+		color = TFT_RED;
+	} else if (fps < 30.0f) {
+		color = TFT_YELLOW;
+	} else if (fps < 60.0f) {
+		color = TFT_CYAN;
+	} else {
+		color = TFT_GREEN;
+	}
+	target->setTextColor(color);
+	target->printf("fps: %5.1f\n", fps);
+}
+
 
 void simpleRendererLoop(float dt)
 {
@@ -705,8 +735,9 @@ void simpleRendererLoop(float dt)
   TFT_eSPI *renderTarget = display.currentRenderTarget();
   drawScene(renderTarget);
 
+  drawFps(renderTarget, dt);
+
   if (usingPlaceholder) {
-    renderTarget->setCursor(0, 0);
     renderTarget->setTextColor(TFT_YELLOW);
     renderTarget->printf("No .obj found in data folder.  Rendering placeholder model.  Use 'Upload Filesystem Image' to upload .obj files");
   }
