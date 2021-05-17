@@ -34,17 +34,23 @@ Button2 button2(BUTTON_2);
 Display display(TFT_WIDTH, TFT_HEIGHT);
 
 float sFOV_Vertical = degToRad(60.0f);
-constexpr float kZNear = 0.1f;
-constexpr float kZFar = 8.0f;
+constexpr float kZNear = 0.1f;  // near clip plane distance
+constexpr float kZFar = 8.0f;   // far clip plane distance
+// Note: we're not doing strict clipping-- just discarding edges that go behind the camera,
+// so kZNear and kZFar are primarily just determining the mapping and precision of the clip space.
 
 vector4 vCameraFocus(0.0f, 0.0f, -4.0f);
 vector4 limita, limitb; // cheap xyz limits for objects
 
-matrix4 mtxWtoV(1.0f);   // camera transform (inverse of the world space transform of the camera object)
+matrix4 mtxWtoV(1.0f);   // world-to-view [camera] transform (inverse of the world space transform of the camera object)
 matrix4 mtxVtoC(1.0f);   // view-to-clip transform (projection)
 matrix4 mtxNDCtoS(1.0f); // normalized-device-coords-to-screen transform
 
-std::vector<vector3> vertDst; // used by drawFaceMesh
+// vertDst is a temporary buffer for transformed vertices.  It's length will grow if a face
+// with more vertices is encountered.  Typically a face has a small number of verts (a triangle has 3,
+// but we allow quads, 5-gons and more).  We pre-allocate this array (later) to length of 64 to
+// reduce fragmentation, but the length will grow if necessary.
+std::vector<vector3> vertDst;
 
 // updated in updateFrustum:
 matrix4 mtxVtoW;
