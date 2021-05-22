@@ -17,8 +17,8 @@
 
 // ----------------------------------------------------------------------------
 // This section has board-specific advanced TFT options:
-#define ENABLE_TFT_DMA          0
-#define ENABLE_MULTI_CORE_COPY  1
+#define ENABLE_TFT_DMA          1
+#define ENABLE_MULTI_CORE_COPY  0
 // DMA, if available, typically results in best framerate.  Multi-core-copy
 // is next fastest, and a standard (typically slowest) single-core copy
 // is performed if both are disabled.
